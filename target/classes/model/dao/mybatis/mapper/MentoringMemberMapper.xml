@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.dao.mybatis.mapper.MentoringMemberMapper">
+	<cache />
+	
+	 <insert id="createMentoringMember" parameterType="HashMap">
+      INSERT INTO MENTORING_MEMBER (mtrId, id) 
+      VALUES (#{mtrId}, #{id})
+   </insert>
+
+   <select id="findMentoringMember" parameterType="HashMap" resultType="MentoringMember"> 
+      SELECT * FROM MENTORING_MEMBER 
+      WHERE Id = #{id} and mtrId = #{mtrId}   
+    </select>  
+   
+   
+   <delete id="deleteMentoringMember" parameterType="String">
+      DELETE FROM MENTORING_MEMBER
+      WHERE Id = #{id}
+   </delete>
+   
+   <delete id="deleteMentoringApplyMember" parameterType="HashMap">
+      DELETE FROM MENTORING_MEMBER 
+      WHERE mtrId = #{mtrId} and id = #{id}
+   </delete>
+    
+       
+   <resultMap id="MentoringMemberMap" type="MentoringMember">
+      <id column="mtrId" jdbcType="INTEGER" property="mtrId" />
+      <result column="id" jdbcType="VARCHAR" property="id" />
+      <collection property="member" ofType="Member">
+         <id column="id" jdbcType="VARCHAR" property="id" />
+         <result column="password" jdbcType="VARCHAR" property="password" />
+         <result column="name" jdbcType="VARCHAR" property="name" />
+         <result column="phonenum" jdbcType="VARCHAR" property="email" />
+         <result column="email" jdbcType="VARCHAR" property="phone" />
+         <result column="part" jdbcType="VARCHAR" property="commId" />
+         <result column="position" jdbcType="VARCHAR" property="commName" />
+         <result column="image" jdbcType="VARCHAR" property="commName" />
+         <result column="score" jdbcType="INTEGER" property="commName" />
+      </collection>
+   </resultMap>   
+ 
+</mapper>

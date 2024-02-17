@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.StudyMemberMapper">
+	<cache />
+	
+	<insert id="create" parameterType="Map">		
+		INSERT INTO STUDY_MEMBER (studyId, Id) 
+		VALUES (#{studyId}, #{id})
+	</insert>
+
+	<select id="findStudyMember" parameterType="Map" resultType="boolean">
+		SELECT IF (COUNT(*) = 1, 1, 0)
+		FROM STUDY_MEMBER
+		WHERE Id = #{id} AND studyId = #{studyId}		
+	</select>
+ 
+	<delete id="deleteStudyMember" parameterType="int">
+		DELETE FROM STUDY_MEMBER
+		WHERE studyId = #{studyId}		
+	</delete>
+	
+	<delete id="deleteStudyApplyMember" parameterType="Map">
+		DELETE FROM STUDY_MEMBER
+		WHERE Id = #{id} AND studyId = #{studyId}
+	</delete>
+
+	<!-- <select id="applyedStudyList" parameterType="Map" resultType="Community"> 
+		SELECT cId AS id, 
+		       cName AS name, 
+		       descr AS description, 
+		       chairId, 
+		       u.name As chairName		        
+        FROM Community c LEFT OUTER JOIN UserInfo u ON c.chairId = u.userId         			
+		WHERE c.cId = #{id} 		
+    </select>     -->  
+</mapper>
